@@ -6,7 +6,6 @@
     ]
   ],
   "_from": "react-native-calendars-monthly-view",
-  "_id": "react-native-calendars-monthly-view@1.1.0",
   "_inBundle": false,
   "_integrity": "sha512-kjzircafbK9x2A0X77aIJGA6RFP3sk3wQpuZOEgpNcpBGCVRHLPOrvm1owRTU6p4OUAcYcAad5s4oVlhaFmSRA==",
   "_location": "/react-native-calendars-monthly-view",
@@ -31,13 +30,10 @@
   "_shasum": "7dea01a13e93e338e4e44b082fd00ec0a5f603fd",
   "_spec": "react-native-calendars-monthly-view",
   "_where": "D:\\BrossardDesign\\timebox-frontend",
-  "author": {
-    "name": "Wix.com"
-  },
+  "author": "Wix.com",
   "bugs": {
     "url": "https://github.com/wix/react-native-calendars/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "hoist-non-react-statics": "^3.3.1",
     "immutable": "^4.0.0-rc.12",
@@ -146,5 +142,5 @@
     "unit": "jest",
     "xcode": "open ios/CalendarsExample.xcworkspace/"
   },
-  "version": "1.1.0"
+  "version": "1.1.2"
 }
