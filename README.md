@@ -94,6 +94,7 @@ The property `color` is mandatory while `key` and `selectedColor` are optional. 
 const ticket = {
   color: "red",
   title: "ticket",
+  textColor : 'White
   extraEventColor: "pink", // this property is used to give color to field with extra events log. Make use you pass this property to first event object
 }
 const surfing = { color: "blue", title: "surfing" }

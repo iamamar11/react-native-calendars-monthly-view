@@ -1,34 +1,33 @@
-import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {View, ScrollView} from 'react-native';
-import {shouldUpdate, extractComponentProps} from '../../../component-updater';
-import styleConstructor from './style';
-import Dot from '../dot';
-
+import PropTypes from "prop-types"
+import React, { Component } from "react"
+import { View, ScrollView } from "react-native"
+import { shouldUpdate, extractComponentProps } from "../../../component-updater"
+import styleConstructor from "./style"
+import Dot from "../dot"
 
 const MARKING_TYPES = {
-  dot: 'dot',
-  multiDot: 'title',
-  period: 'period',
-  multiPeriod: 'multi-period',
-  custom: 'custom',
-};
+  dot: "dot",
+  multiDot: "title",
+  period: "period",
+  multiPeriod: "multi-period",
+  custom: "custom",
+}
 
 const DOT = {
   key: PropTypes.string,
   color: PropTypes.string,
   selectedDotColor: PropTypes.string,
-  title:PropTypes.string
-};
+  title: PropTypes.string,
+}
 
 const PERIOD = {
   startingDay: PropTypes.bool,
   endingDay: PropTypes.bool,
-  color: PropTypes.string
-};
+  color: PropTypes.string,
+}
 
 export default class Marking extends Component {
-  static displayName = 'IGNORE';
+  static displayName = "IGNORE"
 
   static propTypes = {
     ...Dot.propTypes,
@@ -46,112 +45,113 @@ export default class Marking extends Component {
     //multi-dot
     dots: PropTypes.arrayOf(PropTypes.shape(DOT)),
     //multi-period
-    periods: PropTypes.arrayOf(PropTypes.shape(PERIOD))
-  };
+    periods: PropTypes.arrayOf(PropTypes.shape(PERIOD)),
+  }
 
-  static markingTypes = MARKING_TYPES;
+  static markingTypes = MARKING_TYPES
 
   constructor(props) {
-    super(props);
-    this.style = styleConstructor(props.theme);
+    super(props)
+    this.style = styleConstructor(props.theme)
   }
 
   shouldComponentUpdate(nextProps) {
     return shouldUpdate(this.props, nextProps, [
-      'type', 
-      'selected', 
-      'marked', 
-      'today', 
-      'disabled', 
-      'disableTouchEvent', 
-      'activeOpacity', 
-      'selectedColor', 
-      'selectedTextColor', 
-      'dotColor',
-      'dots',
-      'periods'
-    ]);
+      "type",
+      "selected",
+      "marked",
+      "today",
+      "disabled",
+      "disableTouchEvent",
+      "activeOpacity",
+      "selectedColor",
+      "selectedTextColor",
+      "dotColor",
+      "dots",
+      "periods",
+    ])
   }
 
   getItems(items) {
-    const {type} = this.props;
-    
+    const { type } = this.props
+
     if (items && Array.isArray(items) && items.length > 0) {
       // Filter out items so that we process only those which have color property
-      const validItems = items.filter(d => d && d.color);
-      
+      const validItems = items.filter((d) => d && d.color)
+
       return validItems.map((item, index) => {
-        return type === MARKING_TYPES.multiDot ? this.renderDot(index, item) : this.renderPeriod(index, item);
-      });
+        return type === MARKING_TYPES.multiDot
+          ? this.renderDot(index, item)
+          : this.renderPeriod(index, item)
+      })
     }
   }
 
   renderMarkingByType() {
-    const {type, dots, periods} = this.props;
+    const { type, dots, periods } = this.props
 
     switch (type) {
       case MARKING_TYPES.multiDot:
-        return this.renderMultiMarkings(this.style.dots, dots); 
+        return this.renderMultiMarkings(this.style.dots, dots)
       case MARKING_TYPES.multiPeriod:
-        return this.renderMultiMarkings(this.style.periods, periods);    
+        return this.renderMultiMarkings(this.style.periods, periods)
       default:
-        return this.renderDot();
+        return this.renderDot()
     }
   }
 
   renderMultiMarkings(containerStyle, items) {
-    return (
-      <View style={[containerStyle]}>
-        {this.getItems(items)}
-      </View>
-    );
+    return <View style={[containerStyle]}>{this.getItems(items)}</View>
   }
 
   renderPeriod(index, item) {
-    const {color, startingDay, endingDay} = item;
+    const { color, startingDay, endingDay } = item
     const style = [
       this.style.period,
       {
-        backgroundColor: color
-      }
-    ];
+        backgroundColor: color,
+      },
+    ]
     if (startingDay) {
-      style.push(this.style.startingDay);
+      style.push(this.style.startingDay)
     }
     if (endingDay) {
-      style.push(this.style.endingDay);
+      style.push(this.style.endingDay)
     }
-    return <View key={index} style={style}/>;
+    return <View key={index} style={style} />
   }
 
   // Here we will render it as title
   renderDot(index, item) {
-    // console.log("==== ITEM =====")
-    // console.log(item)
-    const {selected, dotColor} = this.props;
-    const dotProps = extractComponentProps(Dot, this.props);
-    let key = index;
-    let color = dotColor;
-    let title = item.titleText;
+    console.log("==== ITEM =====")
+    console.log(item)
+    const { selected, dotColor } = this.props
+    const dotProps = extractComponentProps(Dot, this.props)
+    let key = index
+    let color = dotColor
+    let title = item.titleText
+    let textColor = item.textColor
 
     if (item) {
       if (item.key) {
-        key = item.key;
-      }      
-      color = selected && item.selectedDotColor ? item.selectedDotColor : item.color;
+        key = item.key
+      }
+      color =
+        selected && item.selectedDotColor ? item.selectedDotColor : item.color
     }
 
     return (
-      <Dot 
+      <Dot
         {...dotProps}
         key={key}
         color={color}
         title={title}
+        textColor={textColor}
       />
-    );
+    )
   }
 
   render() {
-    return this.renderMarkingByType();
+    return this.renderMarkingByType()
   }
 }
