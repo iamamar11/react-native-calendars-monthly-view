@@ -1,63 +1,66 @@
-import PropTypes from "prop-types"
-import React from "react"
-import { View, Text } from "react-native"
-import styleConstructor from "./style"
+import PropTypes from 'prop-types';
+import React from 'react';
+import {View, Text} from 'react-native';
+import styleConstructor from './style';
 
-const Dot = ({
-  theme,
-  marked,
-  disabled,
-  color,
-  today,
-  selected,
-  title,
-  textColor,
-}) => {
-  const style = styleConstructor(theme)
-  const dotStyle = [style.dot]
+const Dot = ({theme, marked, disabled, color, today, selected, textColor, extraEventTextColor, title}) => {
+  const style = styleConstructor(theme);
+  const dotStyle = [style.dot];
+
 
   if (marked) {
-    dotStyle.push(style.visibleDot)
+    dotStyle.push(style.visibleDot);
 
     if (today) {
-      dotStyle.push(style.todayDot)
+      dotStyle.push(style.todayDot);
     }
 
     if (disabled) {
-      dotStyle.push(style.disabledDot)
+      dotStyle.push(style.disabledDot);
     }
 
     if (selected) {
-      dotStyle.push(style.selectedDot)
+      dotStyle.push(style.selectedDot);
     }
 
     if (color) {
-      dotStyle.push({ backgroundColor: color })
+      dotStyle.push({backgroundColor: color});
+      
     }
   }
-  console.log(title)
-  console.log(color)
+  // console.log("=== Color for the + feild ===")
+  // console.log(title)
+  // console.log(textColor)
+  // console.log(extraEventTextColor)
+  // console.log(color)
   return (
-    <View>
-      <Text
-        style={{
-          fontSize: 10,
-          backgroundColor: color,
-          color: textColor,
-          margin: 1,
-          paddingHorizontal: 5,
-          paddingVertical: 1,
-          textAlign: "center",
-          height: 15,
-          width: 40,
-        }}>
-        {title.length > 6 ? `${title.substring(0, 5)}..` : title}
+    <View style={{
+        margin: 1,
+        height : 20,
+        backgroundColor : color,
+        fontFamily : 'ProximaNova-Bold',
+        width : title.length == 2 || title.length ==3 && title.includes("+")?25:50,
+        fontSize: title.length == 2 || title.length ==3 && title.includes("+")?5:6,
+        marginLeft : title.length == 2 || title.length ==3 && title.includes("+")?50/4:0,
+        borderRadius : title.length == 2 || title.length ==3 && title.includes("+")? 25:10,
+        alignContent : 'center',
+        justifyContent : 'center'
+        
+    }}>
+      <Text style={{
+        fontSize : 10,
+        paddingHorizontal : 1,
+        paddingVertical : 1,
+        color : ((title.length == 2 || title.length ==3) && title.includes("+"))? extraEventTextColor : textColor,
+        textAlign : 'center',
+      }}>
+        {title.length > 7 ? `${title.substring(0,6)}..` : title}
       </Text>
     </View>
-  )
-}
+  );
+};
 
-export default Dot
+export default Dot;
 
 Dot.propTypes = {
   theme: PropTypes.object,
@@ -65,5 +68,5 @@ Dot.propTypes = {
   marked: PropTypes.bool,
   selected: PropTypes.bool,
   disabled: PropTypes.bool,
-  today: PropTypes.bool,
-}
+  today: PropTypes.bool
+};

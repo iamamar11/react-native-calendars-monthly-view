@@ -91,10 +91,9 @@ Use `markingType={'title'}` if you want to display String or number. Both the `<
 The property `color` is mandatory while `key` and `selectedColor` are optional. If key is omitted then the array index is used as key. If `selectedColor` is omitted then `color` will be used for selected dates.
 
 ```javascript
-const ticket = {
+const Ticket = {
   color: "red",
-  title: "ticket",
-  textColor : 'White
+  title: "Ticket",
   extraEventColor: "pink", // this property is used to give color to field with extra events log. Make use you pass this property to first event object
 }
 const surfing = { color: "blue", title: "surfing" }
@@ -103,9 +102,9 @@ const workout = { color: "green", title: "workout" }
 ;<Calendar
   markedDates={{
     "2017-10-25": {
-      dots: [ticket, surfing, workout],
+      dots: [vacation, massage, workout],
     },
-    "2017-10-26": { dots: [surfing, workout], disabled: true },
+    "2017-10-26": { dots: [massage, workout], disabled: true },
   }}
   markingType={"title"}
 />

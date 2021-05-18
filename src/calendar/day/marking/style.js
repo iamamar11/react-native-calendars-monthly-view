@@ -9,8 +9,7 @@ export default function styleConstructor(theme = {}) {
     dots: {
       flexDirection: 'column',
       width : 50,
-      height : 60,
-      
+      height : 85,
       // backgroundColor : 'orange', 
       // borderWidth : 2,
       // borderColor : 'black',

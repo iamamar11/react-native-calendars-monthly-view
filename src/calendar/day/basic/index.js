@@ -139,18 +139,19 @@ export default class BasicDay extends Component {
   renderMarking() {
     const {theme, markingType} = this.props;
     const {selected, marked, dotColor, dots, periods} = this.marking;
-    console.log(dots)
+    // console.log(dots)
     if(dots !== undefined){
       const highlight = dots[0].extraEventColor;
-      console.log(highlight)
+      // console.log(highlight)
+      // console.log(dots[0].extraEventTextColor)
       if(dots.length > 3){
         const removed = dots.splice(3, dots.length - 3)
-        console.log("=== Splicing the array ===")
-        dots.push({color : highlight, titleText : `+${removed.length} `})
-        console.log(dots)
+        // console.log("=== Splicing the array ===")
+        dots.push({color : highlight, extraEventTextColor: dots[0].extraEventTextColor, titleText : `+${removed.length}`})
+        // console.log(dots)
       }else{
-        console.log("=== No splicing ===")
-        console.log(dots)
+        // console.log("=== No splicing ===")
+        // console.log(dots)
       }
     }
     // ! Here we will set the number of the events to show with name on the screen
