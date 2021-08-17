@@ -2,60 +2,52 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {View, Text} from 'react-native';
 import styleConstructor from './style';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-const Dot = ({theme, marked, disabled, color, today, selected, textColor, extraEventTextColor, title}) => {
+const Dot = ({theme, marked, disabled, color,extraEventTextColor, today, selected, textColor, showMore, title}) => {
   const style = styleConstructor(theme);
   const dotStyle = [style.dot];
 
 
   if (marked) {
     dotStyle.push(style.visibleDot);
-
     if (today) {
       dotStyle.push(style.todayDot);
     }
-
     if (disabled) {
       dotStyle.push(style.disabledDot);
     }
-
     if (selected) {
       dotStyle.push(style.selectedDot);
     }
-
     if (color) {
       dotStyle.push({backgroundColor: color});
       
     }
   }
-  // console.log("=== Color for the + feild ===")
-  // console.log(title)
-  // console.log(textColor)
-  // console.log(extraEventTextColor)
-  // console.log(color)
   return (
+    
     <View style={{
         margin: 1,
-        height : 20,
+        height : 15,
         backgroundColor : color,
         fontFamily : 'ProximaNova-Bold',
-        width : title.length == 2 || title.length ==3 && title.includes("+")?25:50,
-        fontSize: title.length == 2 || title.length ==3 && title.includes("+")?5:6,
-        marginLeft : title.length == 2 || title.length ==3 && title.includes("+")?50/4:0,
-        borderRadius : title.length == 2 || title.length ==3 && title.includes("+")? 25:10,
-        alignContent : 'center',
-        justifyContent : 'center'
-        
+        width : 52,
+        marginLeft : 0,
+        borderRadius : 0,
+        borderBottomColor : showMore && extraEventTextColor,
+        borderBottomWidth: showMore ? 2 : 0
     }}>
-      <Text style={{
-        fontSize : 10,
-        paddingHorizontal : 1,
-        paddingVertical : 1,
-        color : ((title.length == 2 || title.length ==3) && title.includes("+"))? extraEventTextColor : textColor,
-        textAlign : 'center',
-      }}>
-        {title.length > 7 ? `${title.substring(0,6)}..` : title}
-      </Text>
+      <View style={{ height : 15,  overflow : 'hidden',}}>
+          <Text style={{
+            fontSize : 10,
+            color : textColor,
+            textAlign: "center",
+          }}>
+            {title}
+          </Text>
+      </View>
+      { showMore ? <FontAwesome name='caret-down' size={12} color={extraEventTextColor} style={{top : -5, alignSelf : 'center'}}/>: null}
     </View>
   );
 };

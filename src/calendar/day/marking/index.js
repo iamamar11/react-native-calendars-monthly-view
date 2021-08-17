@@ -124,7 +124,8 @@ export default class Marking extends Component {
 
   // Here we will render it as title
   renderDot(index, item) {
-    // console.log("==== ITEM =====")
+    console.log("==== ITEM =====")
+    console.log({index, item})
     // console.log(item)
     const {selected, dotColor} = this.props;
     const dotProps = extractComponentProps(Dot, this.props);
@@ -145,6 +146,7 @@ export default class Marking extends Component {
         key={key}
         color={color}
         title={title}
+        showMore={index>= 4}
         extraEventTextColor={item.extraEventTextColor}
         textColor={item.textColor}
       />
